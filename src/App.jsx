@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
   const [tasks, settask] = useState([])
@@ -12,6 +12,16 @@ function App() {
       setnewtask("")
     }
   }
+  useEffect(() => {
+    const localdata=JSON.parse(localStorage.getItem('taskss'))
+    settask(localdata)
+  }, [])
+  
+  useEffect(() => {
+    localStorage.setItem('taskss',JSON.stringify(tasks))
+    
+  }, [tasks])
+  
   const handledeletetask = (index) => {
     let updatedtask = [...tasks]
     updatedtask.splice(index, 1)
